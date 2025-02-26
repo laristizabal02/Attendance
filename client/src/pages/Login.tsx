@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+//import './pages.css';
 
 
 import Auth from '../utils/auth';
@@ -40,7 +41,7 @@ const Login = () => {
 
   return (
     <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
+      <div className="flex-column justify-flex-start min-100-vh">
         <div className="card p-4">
           <h2>Login as Parent/Guardian</h2>
           <div className="card-body">

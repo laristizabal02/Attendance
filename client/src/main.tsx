@@ -7,6 +7,7 @@ import App from './App.jsx';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ErrorPage from './pages/Error';
+import InstructorPage from './pages/InstructorPage.js';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,10 @@ const router = createBrowserRouter([
       }, {
         path: '/signup',
         element: <Signup />
-      }
+      },{
+        path: '/instructor',
+        element: <InstructorPage />
+      }, 
     ]
   },
 ]);

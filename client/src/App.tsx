@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   ApolloClient,
   InMemoryCache,
@@ -40,7 +41,8 @@ function App() {
     <ApolloProvider client={client}>
       <div className="flex-column justify-flex-start min-100-vh">
         <Header />
-        <div className="container">
+        <div className="flex-column justify-flex-start min-100-vh">
+        <h1 className="text-center">Welcome to Course Registration</h1>
           <Outlet />
         </div>
         <Footer />
