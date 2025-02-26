@@ -1,7 +1,9 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+//import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+
 //import './pages.css';
 
 
@@ -85,12 +87,17 @@ const Login = () => {
                 </button>
               </form>
             )}
-
+            <div className="my-3">
+              <Link to="/signup">Don't have an account? Sign up here.</Link>
+              <br />
+            </div>
             {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
               </div>
             )}
+
+            
           </div>
         </div>
       </div>

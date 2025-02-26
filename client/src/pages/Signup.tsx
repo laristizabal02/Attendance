@@ -38,7 +38,7 @@ const Signup = () => {
 
   return (
     <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
+      <div className="flex-column justify-flex-start min-100-vh">
         <div className="card p-4">
           <h2>Sign Up</h2>
           <div className="card-body">
@@ -100,6 +100,10 @@ const Signup = () => {
                 {error.message}
               </div>
             )}
+            <div className="my-3">
+              <Link to="/login">Already have an account? Log in here.</Link>
+              <br />
+              </div>
           </div>
         </div>
       </div>
