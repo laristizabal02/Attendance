@@ -13,5 +13,6 @@ export interface IInstructor extends Document {
     courses: [{ type: Schema.Types.ObjectId, ref: "Course" }]
   });
   
-  export const Instructor = mongoose.model<IInstructor>("Instructor", InstructorSchema);
+ const Instructor = mongoose.model<IInstructor>("Instructor", InstructorSchema);
+ export default Instructor;
   

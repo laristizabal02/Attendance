@@ -18,5 +18,6 @@ export interface IParent extends Document {
     children: [{ type: Schema.Types.ObjectId, ref: "Student" }]
   });
   
-  export const Parent = mongoose.model<IParent>("Parent", ParentSchema);
+const Parent = mongoose.model<IParent>("Parent", ParentSchema);
+export default Parent; 
   

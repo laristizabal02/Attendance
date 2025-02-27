@@ -16,4 +16,5 @@ const PersonSchema = new Schema<IPerson>({
   users: [{ type: Schema.Types.ObjectId, ref: "User" }]
 });
 
-export const Person = mongoose.model<IPerson>("Person", PersonSchema);
+const Person = mongoose.model<IPerson>("Person", PersonSchema);
+export default Person;

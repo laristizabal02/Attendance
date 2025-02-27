@@ -11,5 +11,6 @@ export interface IStudent extends Document {
     courses: [{ type: Schema.Types.ObjectId, ref: "Course" }]
   });
   
-  export const Student = mongoose.model<IStudent>("Student", StudentSchema);
+  const Student = mongoose.model<IStudent>("Student", StudentSchema);
+  export default Student;
   
