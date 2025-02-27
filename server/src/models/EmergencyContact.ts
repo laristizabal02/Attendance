@@ -10,5 +10,6 @@ export interface IEmergencyContact extends Document {
     relationship: { type: String, required: true }
   });
   
-  export const EmergencyContact = mongoose.model<IEmergencyContact>("EmergencyContact", EmergencyContactSchema);
+  const EmergencyContact = mongoose.model<IEmergencyContact>("EmergencyContact", EmergencyContactSchema);
+  export default EmergencyContact;
   
