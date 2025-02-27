@@ -1,7 +1,26 @@
 import { signToken, AuthenticationError } from '../utils/auth.js';
-import { User } from '../models/index.js';
+import { User, Course } from '../models/index.js';
 const resolvers = {
+    Query: {
+        courses: async () => {
+            return await Course.find().populate('instructor').populate('students');
+        },
+        course: async (_parent, { _id }) => {
+            return await Course.findById(_id).populate('instructor').populate('students');
+        },
+    },
     Mutation: {
+        addCourse: async (_parent, { input }) => {
+            const course = new Course(input);
+            await course.save();
+            return course;
+        },
+        updateCourse: async (_parent, { _id, title }) => {
+            return await Course.findByIdAndUpdate(_id, { title }, { new: true });
+        },
+        deleteCourse: async (_parent, { _id }) => {
+            return await Course.findByIdAndDelete(_id);
+        },
         addUser: async (_parent, { input }) => {
             // Create a new user with the provided username, email, and password
             const user = await User.create({ ...input });

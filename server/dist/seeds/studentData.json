@@ -1,0 +1,32 @@
+[
+    {
+        "person": "salome",
+        "parents": ["marcela", "brayan"],
+        "courses": ["Introduction to Programming"]
+    },
+    {
+        "person": "catalina",
+        "parents": ["alonso", "patricia"],
+        "courses": ["Database Systems"]
+    },
+    {
+        "person": "berta",
+        "parents": ["thanos", "patrick"],
+        "courses": ["Matematicas"]
+    },
+    {
+        "person": "laura",
+        "parents": ["steven", "maria"],
+        "courses": ["Espanol"]
+    },
+    {
+        "person": "valeria",
+        "parents": ["juan", "luisa"],
+        "courses": ["Ingles"]
+    },
+    {
+        "person": "dary",
+        "parents": ["jonny", "omaira"],
+        "courses": ["Introduction to Programming"]
+    }
+]
