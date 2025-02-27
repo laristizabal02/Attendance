@@ -1,4 +1,27 @@
 const typeDefs = `
+
+type Instructor {
+  _id: ID!
+  username: String!
+  email: String!
+}
+
+type Student {
+  _id: ID!
+  username: String!
+  email: String!
+}
+
+input InstructorInput {
+  username: String!
+  email: String!
+}
+
+input StudentInput {
+  username: String!
+  email: String!
+}
+
   type User {
     _id: ID
     username: String
@@ -11,6 +34,19 @@ const typeDefs = `
     email: String!
     password: String!
   }
+
+   type Course {
+    _id: ID
+    title: String
+    instructor: Instructor
+    students: [Student]
+  }
+
+  input CourseInput {
+    title: String!
+    instructor: ID!
+    students: [ID!]
+  }
   
   type Auth {
     token: ID!
@@ -21,11 +57,20 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
     me: User
+    courses: [Course]
+    course(_id: ID!): Course
+    getInstructor(id: ID!): Instructor
+  getStudent(id: ID!): Student
   }
 
   type Mutation {
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
+    addCourse(input: CourseInput!): Course
+    updateCourse(_id: ID!, title: String): Course
+    deleteCourse(_id: ID!): Course
+    addInstructor(input: InstructorInput!): Instructor
+    addStudent(input: StudentInput!): Student
   }
 `;
 

@@ -1,0 +1,16 @@
+[
+    
+        {
+          "person": "Dr.Science", 
+          "school": "Physics Department",
+          "officePhone": "123-456-7890",
+          "courses": ["Physics 101", "Advanced Physics"]
+        },
+      
+    {
+      "person": "SuperMom",  
+      "school": "Tech High School",
+      "officePhone": "987-654-3210",
+      "courses": ["Physics 101", "Advanced Physics"] 
+    }
+  ]

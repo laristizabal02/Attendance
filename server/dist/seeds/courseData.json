@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Introduction to Programming",
+        "instructor": "laura",
+        "students": ["salome", "alejandro"]
+    },
+    {
+        "title": "Database Systems",
+        "instructor": "sandra",
+        "students": ["jaime", "catalina"]
+    },
+    {
+        "title": "Matematicas",
+        "instructor": "sandra",
+        "students": ["jaime", "catalina"]
+    },
+    {
+        "title": "Espanol",
+        "instructor": "sandra",
+        "students": ["jaime", "catalina"]
+    },
+    {
+        "title": "Ingles",
+        "instructor": "sandra",
+        "students": ["jaime", "catalina"]
+    }
+]
