@@ -3,7 +3,7 @@
     /* Language and Environment */
     "target": "ES2020" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     /* Modules */
-    "module": "ESNext" /* Specify what module code is generated. */,
+    "module": "NodeNext" /* Specify what module code is generated. */,
     "moduleResolution": "NodeNext" /* Enable correct module resolution for Node.js, including JSON imports. */,
     "resolveJsonModule": true /* Allows importing JSON files directly in TypeScript. */,
     "skipLibCheck": true,
