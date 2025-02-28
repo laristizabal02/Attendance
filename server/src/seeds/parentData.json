@@ -1,0 +1,18 @@
+[
+    {
+        "firstName": "Sally",
+        "lastName": "Mom",
+        "homePhone": "303-BIG-MOM1",
+        "workPhone": "",
+        "workAddress": "",
+        "cellPhone": "720-MOM-CELL1"
+    },
+    {
+        "firstName": "Mark",
+        "lastName": "Dad",
+        "homePhone": "303-BIG-DAD1",
+        "workPhone": "",
+        "workAddress": "",
+        "cellPhone": "720-DAD-CELL1"
+    }
+]
