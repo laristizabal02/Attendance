@@ -27,3 +27,13 @@ export const QUERY_COURSES = gql`
     }
   }
 `;
+
+export const QUERY_COURSE_STUDENTS = gql`
+  query getCourseStudents($courseId: ID!) {
+    courseStudents(courseId: $courseId) {
+      _id
+      username
+      email
+    }
+  }
+`;

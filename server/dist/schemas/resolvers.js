@@ -8,6 +8,12 @@ const resolvers = {
         course: async (_parent, { _id }) => {
             return await Course.findById(_id).populate('instructor').populate('students');
         },
+        courseStudents: async (_parent, { courseId }) => {
+            const course = await Course.findById(courseId).populate('students');
+            console.log("Students numer", courseId);
+            console.log("Students enrolled:", course?.students);
+            return course ? course.students : [];
+        },
     },
     Mutation: {
         addCourse: async (_parent, { input }) => {
