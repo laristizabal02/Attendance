@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import ErrorPage from './pages/Error';
 import InstructorPage from './pages/InstructorPage.js';
+import StudentPage from './pages/StudentPage.js';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: '/instructor',
         element: <InstructorPage />
       }, 
+      {
+        path: '/students/:courseId', 
+        element: <StudentPage />
+      }
     ]
   },
 ]);

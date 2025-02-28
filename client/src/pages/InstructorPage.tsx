@@ -4,6 +4,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_COURSES } from '../utils/queries';
 import { ADD_COURSE, UPDATE_COURSE, DELETE_COURSE } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { Link } from 'react-router-dom';
 
 const InstructorPage = () => {
   const [courseTitle, setCourseTitle] = useState('');
@@ -102,6 +103,9 @@ const InstructorPage = () => {
               <tr key={course._id}>
                 <td>{course.title}</td>
                 <td className="text-center">
+                  <Link to={`/students/${course._id}`} className="btn btn-info me-2">
+                    View Students
+                  </Link>
                   <button
                     className="btn btn-primary me-2"
                     onClick={() => {
