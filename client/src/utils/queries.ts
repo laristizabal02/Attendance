@@ -8,5 +8,22 @@ export const QUERY_USER = gql`
       email
       }
     }
+  
+`;
+
+export const QUERY_COURSES = gql`
+  query courses {
+    courses {
+      _id
+      title
+      instructor {
+        _id
+        username
+      }
+      students {
+        _id
+        username
+      }
+    }
   }
 `;
