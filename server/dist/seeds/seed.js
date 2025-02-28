@@ -1,5 +1,5 @@
 import db from '../config/connection.js';
-import { Course, Student, User, Person, Parent } from '../models/index.js';
+import { Course, Instructor, Student, User, Person, Parent } from '../models/index.js';
 import cleanDB from './cleanDB.js';
 import mongoose from "mongoose";
 import parentData from './parentData.json' assert { type: 'json' };
@@ -7,6 +7,7 @@ import userData from './userData.json' assert { type: 'json' };
 import personData from './personData.json' assert { type: 'json' };
 import courseData from './courseData.json' assert { type: 'json' };
 import studentData from './studentData.json' assert { type: 'json' };
+import instructorData from './instructorData.json' assert { type: 'json' };
 const generateObjectIds = (count) => {
     return Array.from({ length: count }, () => new mongoose.Types.ObjectId());
 };
@@ -42,6 +43,7 @@ const seedDatabase = async () => {
         await Person.create(personData);
         console.log('Persons created successfully');
         await seedParents();
+        await seedInstructors();
         console.log('Seeding completed successfully!');
         process.exit(0);
     }
@@ -84,6 +86,40 @@ const seedParents = async () => {
     }
     catch (error) {
         console.error("Error seeding Parents:", error);
+    }
+};
+const seedInstructors = async () => {
+    try {
+        for (const instructor of instructorData) {
+            // First, try to find the corresponding Person
+            let personRecord = await Person.findOne({
+                firstName: instructor.firstName,
+                lastName: instructor.lastName
+            });
+            // If the Person doesn't exist, create a new one
+            if (!personRecord) {
+                personRecord = new Person({
+                    firstName: instructor.firstName,
+                    lastName: instructor.lastName,
+                    phone: instructor.officePhone || undefined, // Use office phone if available
+                    address: undefined
+                });
+                await personRecord.save();
+                console.log(`Created new Person: ${instructor.firstName} ${instructor.lastName}`);
+            }
+            // Now construct the Instructor record
+            const instructorEntry = {
+                person: personRecord._id,
+                school: instructor.school || undefined,
+                officePhone: instructor.officePhone || undefined,
+            };
+            // Step 4: Insert the Instructor record into MongoDB
+            await Instructor.create(instructorEntry);
+            console.log(`Instructor added: ${instructor.firstName} ${instructor.lastName}`);
+        }
+    }
+    catch (error) {
+        console.error("Error seeding Instructors:", error);
     }
 };
 seedDatabase();

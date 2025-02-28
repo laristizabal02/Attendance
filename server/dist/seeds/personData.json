@@ -1,0 +1,20 @@
+[
+    {
+        "firstName": "John",
+        "lastName": "Science",
+        "phone": "303-271-1876 x43",
+        "address": "16 Campus Way"
+    },
+    {
+        "firstName": "Sally",
+        "lastName": "Mom",
+        "phone": "303-BIG-MOM1",
+        "address": "100 Main St"
+    },
+    {
+        "firstName": "Mark",
+        "lastName": "Dad",
+        "phone": "303-BIG-DAD1",
+        "address": "100 Main St"
+    }
+]
