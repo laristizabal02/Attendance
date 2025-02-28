@@ -1,5 +1,5 @@
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
-import { User, Course, Instructor, Student  } from '../models/index.js';
+import { User, Course } from '../models/index.js';
 
 interface AddUserArgs {
     input:{
