@@ -13,19 +13,25 @@
     "client:dev": "cd client && npm run dev",
     "seed": "cd server && npm run seed",
     "build": "concurrently \"cd server && npm run build\" \"cd client && npm run build\"",
-    "render-build": "npm install && npm run build"
+    "render-build": "npm install && npm run build",
+    "test": "npx cypress run --browser electron",
+    "test-component": "npx cypress run --component",
+    "test-gui": "npx cypress open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.17",
+    "@types/jest": "^29.5.14",
     "@types/mongodb": "^4.0.6",
     "@types/mongoose": "^5.11.96",
     "concurrently": "^8.2.2",
+    "cypress": "^14.1.0",
     "wait-on": "^7.2.0"
   },
   "dependencies": {
+    "@testing-library/cypress": "^10.0.3",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "react": "^19.0.0",
