@@ -26,7 +26,7 @@ interface LoginUserArgs {
       },
       courseStudents: async (_parent: any, { courseId }: { courseId: string }) => {
         const course = await Course.findById(courseId).populate('students');
-        console.log("Students numer", courseId);
+        console.log("Course number", courseId);
         console.log("Students enrolled:", course?.students);
         return course ? course.students : [];
       },
