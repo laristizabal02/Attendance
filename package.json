@@ -19,11 +19,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
     "concurrently": "^8.2.2",
     "wait-on": "^7.2.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
