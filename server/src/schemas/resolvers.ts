@@ -1,5 +1,5 @@
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
-import { User, Course, Instructor, Student  } from '../models/index.js';
+import { User, Course } from '../models/index.js';
 
 interface AddUserArgs {
     input:{
@@ -24,9 +24,16 @@ interface LoginUserArgs {
       course: async (_parent: any, { _id }: { _id: string }) => {
         return await Course.findById(_id).populate('instructor').populate('students');
       },
-      courseByTitle: async (_parent: any, { title }: { title: string }) => {
+    courseByTitle: async (_parent: any, { title }: { title: string }) => {
         return await Course.findOne({ title }).populate('instructor').populate('students');
       },
+      courseStudents: async (_parent: any, { courseId }: { courseId: string }) => {
+        const course = await Course.findById(courseId).populate('students');
+        console.log("Course number", courseId);
+        console.log("Students enrolled:", course?.students);
+        return course ? course.students : [];
+      },
+      
     },
       
     

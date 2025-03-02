@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server/server.js",
+    "start": "node server/dist/server.js",
     "start:dev": "concurrently \"cd server && npm run watch\" \"wait-on tcp:3001 && cd client && npm run dev\"",
     "server": "cd server && npm start",
     "server:dev": "cd server && npm run dev",
@@ -15,17 +15,27 @@
     "seed-data": "cd server && npm run seed-data",
     "seed": "cd server && npm run seed",
     "build": "concurrently \"cd server && npm run build\" \"cd client && npm run build\"",
-    "render-build": "npm install && npm run build"
+    "render-build": "npm install && npm run build",
+    "test": "npx cypress run --browser electron",
+    "test-component": "npx cypress run --component",
+    "test-gui": "npx cypress open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/jest": "^29.5.14",
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
     "concurrently": "^8.2.2",
+    "cypress": "^14.1.0",
     "wait-on": "^7.2.0"
   },
   "dependencies": {
+    "@testing-library/cypress": "^10.0.3",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }

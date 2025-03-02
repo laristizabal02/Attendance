@@ -63,6 +63,17 @@ input StudentInput {
   getStudent(id: ID!): Student
   }
 
+  type Query {
+  users: [User]
+  user(username: String!): User
+  me: User
+  courses: [Course]
+  course(_id: ID!): Course
+  getInstructor(id: ID!): Instructor
+  getStudent(id: ID!): Student
+  courseStudents(courseId: ID!): [Student] 
+}
+
   type Mutation {
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth

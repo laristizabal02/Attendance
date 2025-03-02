@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
+
 export interface IStudent extends Document {
     person: mongoose.Types.ObjectId;
     nickName?:  string;
