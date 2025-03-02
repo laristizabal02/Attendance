@@ -1,0 +1,23 @@
+[
+  {
+    "firstName": "John",
+    "lastName": "Science",
+    "school": "Physics Department",
+    "officePhone": "123-456-7890",
+    "courses": [
+      "Matematicas",
+      "Physics 101",
+      "Advanced Physics"
+    ]
+  },
+  {
+    "firstName": "Sally",
+    "lastName": "Mom",
+    "school": "Tech High School",
+    "officePhone": "987-654-3210",
+    "courses": [
+      "Espanol",
+      "Ingles"
+    ]
+  }
+]

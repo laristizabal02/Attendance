@@ -24,9 +24,12 @@ interface LoginUserArgs {
       course: async (_parent: any, { _id }: { _id: string }) => {
         return await Course.findById(_id).populate('instructor').populate('students');
       },
-      
+      courseByTitle: async (_parent: any, { title }: { title: string }) => {
+        return await Course.findOne({ title }).populate('instructor').populate('students');
+      },
     },
-
+      
+    
     Mutation: {
 
       addCourse: async (_parent: any, { input }: { input: { title: string, instructor: string, students: string[] } }) => {
