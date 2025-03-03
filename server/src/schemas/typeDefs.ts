@@ -53,6 +53,7 @@ input StudentInput {
   status: String!
   student: Student!
 }
+  
   input AttendanceInput {
   studentId: ID!
   status: String!
@@ -80,6 +81,7 @@ type ResponseMessage {
   allStudents: [Student]
   attendanceByCourseAndDate(courseId: ID!, date: String!): [Attendance]!
   attendance(courseId: ID!, date: String!): [Attendance!]!
+  getAttendanceByDate(courseId: ID!, date: String!): [Attendance]
   }
 
   type Query {
@@ -94,6 +96,7 @@ type ResponseMessage {
   allStudents: [Student]
   attendanceByCourseAndDate(courseId: ID!, date: String!): [Attendance]!
   attendance(courseId: ID!, date: String!): [Attendance!]!
+  getAttendanceByDate(courseId: ID!, date: String!): [Attendance]
 }
 
   type Mutation {

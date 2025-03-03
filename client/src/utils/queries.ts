@@ -52,15 +52,14 @@ export const GET_ALL_STUDENTS = gql`
   }
 `;
 
-export const QUERY_ATTENDANCE_BY_DATE = gql`
+export const GET_ATTENDANCE_BY_DATE = gql`
   query getAttendanceByDate($courseId: ID!, $date: String!) {
-    attendance(courseId: $courseId, date: $date) {
-      date
-      status
+    getAttendanceByDate(courseId: $courseId, date: $date) {
       student {
-        _id
         username
       }
+      status
+      date
     }
   }
 `;
