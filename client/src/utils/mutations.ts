@@ -59,7 +59,7 @@ export const ADD_STUDENT_TO_COURSE = gql`
     mutation AddStudentToCourse($courseId: ID!, $studentId: ID!) {
     addStudentToCourse(courseId: $courseId, studentId: $studentId) {
       _id
-      name
+      title
       students {
         _id
         username
