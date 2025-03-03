@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_COURSE_STUDENTS } from '../utils/queries';
-import { ADD_STUDENT_TO_COURSE, GET_ALL_STUDENTS, ADD_NEW_STUDENT } from '../utils/mutations'; // Import the mutation and the new query
+import { ADD_STUDENT_TO_COURSE, GET_ALL_STUDENTS, ADD_NEW_STUDENT, ADD_ATTENDANCE } from '../utils/mutations'; // Import the mutation for attendance
 import Auth from '../utils/auth';
 import { useState } from 'react';
 import mongoose from 'mongoose';
@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 const StudentPage = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  
+
   // Fetch course students
   const { data, loading, error } = useQuery(QUERY_COURSE_STUDENTS, {
     variables: { courseId },
@@ -24,6 +24,47 @@ const StudentPage = () => {
 
   const [addStudentToCourse, { error: mutationError }] = useMutation(ADD_STUDENT_TO_COURSE);
   const [addNewStudent, { error: addStudentError }] = useMutation(ADD_NEW_STUDENT);
+  const [addAttendance, { error: attendanceError }] = useMutation(ADD_ATTENDANCE); // Mutation for adding attendance
+  
+
+  // State for attendance tracking
+  const [attendanceData, setAttendanceData] = useState<{ [key: string]: string }>({}); // { studentId: 'present' or 'absent' }
+
+  // Handle attendance change (mark student as present or absent)
+  const handleAttendanceChange = (studentId: string, status: string) => {
+    setAttendanceData((prevState) => ({
+      ...prevState,
+      [studentId]: status,
+    }));
+  };
+
+  // Handle adding attendance for all students
+  const handleAddAttendance = async () => {
+    try {
+      // Prepare attendance data
+      const attendance = Object.keys(attendanceData).map((studentId) => ({
+        studentId,
+        status: attendanceData[studentId],
+      }));
+      console.log('Attendance data:', attendance);
+      console.log('Course ID:', courseId);
+      console.log('Date:', new Date().toISOString());
+      console.log('Attendance:', attendance);
+      
+      // Call the mutation to add attendance
+      await addAttendance({
+        variables: {
+          courseId,
+          date: new Date().toISOString(), // Use the current date, or you can choose a specific date
+          attendance,
+        },
+      });
+
+      alert('Attendance saved successfully!');
+    } catch (e) {
+      console.error('Error saving attendance:', e);
+    }
+  };
 
   const handleAddStudent = async () => {
     console.log(mongoose.Types.ObjectId.isValid(selectedStudentId));
@@ -35,7 +76,7 @@ const StudentPage = () => {
     try {
       await addStudentToCourse({
         variables: { courseId, studentId: selectedStudentId },
-          update: (cache, { data: { addStudentToCourse } }) => {
+        update: (cache, { data: { addStudentToCourse } }) => {
           cache.writeQuery({
             query: QUERY_COURSE_STUDENTS,
             variables: { courseId },
@@ -87,6 +128,7 @@ const StudentPage = () => {
               <tr>
                 <th>Student Name</th>
                 <th>Email</th>
+                <th>Attendance</th>
               </tr>
             </thead>
             <tbody>
@@ -94,13 +136,35 @@ const StudentPage = () => {
                 <tr key={student._id}>
                   <td>{student.username}</td>
                   <td>{student.email}</td>
+                  <td>
+                    <select
+                      value={attendanceData[student._id] || ''}
+                      onChange={(e) => handleAttendanceChange(student._id, e.target.value)}
+                    >
+                      <option value="">-- Select --</option>
+                      <option value="present">Present</option>
+                      <option value="absent">Absent</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
+               
             </tbody>
-          </table>
+            </table>
         ) : (
           !loading && !error && <p>No students enrolled yet.</p>
         )}
+
+        {/* Add attendance button - Now placed right after the student list */}
+        <div className="mt-4">
+          <button className="btn btn-success" onClick={handleAddAttendance}>
+            Save Attendance
+          </button>
+
+          {/* Show error if any during attendance mutation */}
+          {attendanceError && <p className="text-danger mt-2">Error saving attendance: {attendanceError.message}</p>}
+        </div>
+
 
         {/* Add student form */}
         <div className="mt-4">
@@ -169,6 +233,8 @@ const StudentPage = () => {
           {/* Show error if any during mutation */}
           {addStudentError && <p className="text-danger mt-2">Error creating student: {addStudentError.message}</p>}
         </div>
+
+       
 
         {/* Navigation Buttons - Always Visible */}
         <div className="d-flex justify-content-between mt-4">

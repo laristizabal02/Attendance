@@ -52,3 +52,15 @@ export const GET_ALL_STUDENTS = gql`
   }
 `;
 
+export const QUERY_ATTENDANCE_BY_DATE = gql`
+  query getAttendanceByDate($courseId: ID!, $date: String!) {
+    attendance(courseId: $courseId, date: $date) {
+      date
+      status
+      student {
+        _id
+        username
+      }
+    }
+  }
+`;
