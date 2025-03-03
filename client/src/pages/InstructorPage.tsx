@@ -18,29 +18,34 @@ const InstructorPage = () => {
     return <Navigate to="/login" />;
   }
 
+  
   const handleAddCourse = async () => {
     if (!courseTitle) return;
-
+  
     const user = Auth.getUser();
-    if (!user) {
-      console.error("Instructor not logged in");
+    console.log("Logged in user:", user); // Debugging step
+    console.log("Logged in user:", user?._id); // Debugging step
+    console.log("titulo:" + courseTitle); // Debugging step
+    if (!user || !user._id) {
+      console.error("Instructor ID is missing");
       return;
     }
-
+  
     try {
       await addCourse({
-        variables: { 
-          input: { 
-            title: courseTitle, 
-            instructor: user.id,
-            students: [] 
-          } 
+        
+        variables: {
+          input: {
+            title: courseTitle,
+            instructor: user?._id, // Ensure the instructor ID is passed correctly
+            students: [],
+          },
         },
-        refetchQueries: [{ query: QUERY_COURSES }]
+        refetchQueries: [{ query: QUERY_COURSES }],
       });
       setCourseTitle('');
     } catch (err) {
-      console.error(err);
+      console.error("Error adding course:", err);
     }
   };
 

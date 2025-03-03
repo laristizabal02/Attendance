@@ -1,7 +1,27 @@
 import { signToken, AuthenticationError } from '../utils/auth.js';
-import { User, Course } from '../models/index.js';
+import { User, Course, Student } from '../models/index.js';
+import { Types } from 'mongoose';
 const resolvers = {
     Query: {
+        allStudents: async () => {
+            try {
+                const students = await Student.find(); // Fetch all students from the database
+                // Filter out students without a valid 'username' field
+                const validStudents = students.filter(student => student.username);
+                // Optionally, replace invalid usernames with a default value (like 'Unknown')
+                students.forEach(student => {
+                    if (!student.username) {
+                        student.username = 'Unknown'; // Default value for username
+                    }
+                });
+                // Return valid students only
+                return validStudents; // Use 'validStudents' here
+            }
+            catch (error) {
+                console.error('Error fetching students:', error);
+                throw new Error('Failed to fetch students');
+            }
+        },
         courses: async () => {
             return await Course.find().populate('instructor').populate('students');
         },
@@ -16,6 +36,41 @@ const resolvers = {
         },
     },
     Mutation: {
+        addStudent: async (_, { username, email }) => {
+            try {
+                // Create a new student and save to the database
+                console.log(username, email);
+                const newStudent = new Student({
+                    username,
+                    email,
+                });
+                // Save the student to the database
+                await newStudent.save();
+                return newStudent; // Return the newly created student
+            }
+            catch (error) {
+                console.error('Error creating student:', error);
+                throw new Error('Failed to create student');
+            }
+        },
+        addStudentToCourse: async (_parent, { courseId, studentId }) => {
+            // Convert the string IDs to ObjectId
+            const courseObjectId = new Types.ObjectId(courseId);
+            const studentObjectId = new Types.ObjectId(studentId);
+            const course = await Course.findById(courseObjectId);
+            if (!course) {
+                throw new Error('Course not found');
+            }
+            const student = await User.findById(studentObjectId);
+            if (!student) {
+                throw new Error('Student not found');
+            }
+            // Add student to course
+            course.students.push(studentObjectId);
+            await course.save();
+            // Return the updated course with the students
+            return course.populate('students');
+        },
         addCourse: async (_parent, { input }) => {
             const course = new Course(input);
             await course.save();

@@ -1,0 +1,62 @@
+[
+    {
+        "firstName": "Salome",
+        "lastName": "Einstein",
+        "nickName": "Sal",
+        "birthDate": "2009-05-07",
+        "phone": "303-431-2134",
+        "address": "11561 W 27th Pl",
+        "parents": ["marcela", "brayan"],
+        "courses": ["Introduction to Programming"]
+    },
+    {
+        "firstName": "Catalina",
+        "lastName": "Einstein",
+        "nickName": "Cat",
+        "birthDate": "2010-10-07",
+        "phone": "303-431-2134",
+        "address": "11561 W 27th Pl",
+        "parents": ["alonso", "patricia"],
+        "courses": ["Database Systems"]
+    },
+    {
+        "firstName": "Berta",
+        "lastName": "Smith",
+        "nickName": "Berta",
+        "birthDate": "2010-10-07",
+        "phone": "303-420-1349",
+        "address": "1922 N 10th St",
+        "parents": ["thanos", "patrick"],
+        "courses": ["Matematicas"]
+    },
+    {
+        "firstName": "Laura",
+        "lastName": "Sheldon",
+        "nickName": "Lori",
+        "birthDate": "2009-06-23",
+        "phone": "720-477-1820",
+        "address": "5969 Eldridge Ct",
+        "parents": ["steven", "maria"],
+        "courses": ["Espanol"]
+    },
+    {
+        "firstName": "Valeria",
+        "lastName": "Garcia",
+        "nickName": "Valeria",
+        "birthDate": "2012-07-11",
+        "phone": "720-233-4196",
+        "address": "1800 Lorado St",
+        "parents": ["juan", "luisa"],
+        "courses": ["Ingles"]
+    },
+    {
+        "firstName": "Daryl",
+        "lastName": "Holstein",
+        "nickName": "Dary",
+        "birthDate": "2013-02-27",
+        "phone": "720-237-2184",
+        "address": "1800 Bronco Dr",
+        "parents": ["jonny", "omaira"],
+        "courses": ["Introduction to Programming"]
+    }
+]
