@@ -4,6 +4,26 @@ import Attendance from '../models/Attendance.js';
 import { Types } from 'mongoose';
 const resolvers = {
     Query: {
+        getAttendanceByDate: async (_parent, { courseId, date }) => {
+            const startOfDay = new Date(date);
+            startOfDay.setUTCHours(0, 0, 0, 0);
+            const endOfDay = new Date(date);
+            endOfDay.setUTCHours(23, 59, 59, 999);
+            console.log("Querying Attendance for Course:", courseId);
+            console.log("Selected Date (Raw):", date);
+            console.log("Start of Day (UTC):", startOfDay.toISOString());
+            console.log("End of Day (UTC):", endOfDay.toISOString());
+            const attendance = await Attendance.find({
+                courseId,
+                date: { $gte: startOfDay, $lte: endOfDay },
+            }).populate('studentId', 'username');
+            console.log("Fetching attendance for:", courseId, startOfDay, endOfDay);
+            return attendance.map(att => ({
+                student: att.studentId, // Ensure it's named correctly
+                status: att.status,
+                date: att.date
+            }));
+        },
         attendanceByCourseAndDate: async (_parent, { courseId, date }) => {
             try {
                 const courseObjectId = new Types.ObjectId(courseId);

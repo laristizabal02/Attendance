@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { QUERY_COURSE_STUDENTS } from '../utils/queries';
+import { QUERY_COURSE_STUDENTS, GET_ATTENDANCE_BY_DATE } from '../utils/queries';
 import { ADD_STUDENT_TO_COURSE, GET_ALL_STUDENTS, ADD_NEW_STUDENT, ADD_ATTENDANCE } from '../utils/mutations'; // Import the mutation for attendance
 import Auth from '../utils/auth';
 import { useState } from 'react';
@@ -24,11 +24,23 @@ const StudentPage = () => {
 
   const [addStudentToCourse, { error: mutationError }] = useMutation(ADD_STUDENT_TO_COURSE);
   const [addNewStudent, { error: addStudentError }] = useMutation(ADD_NEW_STUDENT);
-  const [addAttendance, { error: attendanceError }] = useMutation(ADD_ATTENDANCE); // Mutation for adding attendance
-  
+  const [addAttendance, { error: mutationAttendanceError  }] = useMutation(ADD_ATTENDANCE); // Mutation for adding attendance
 
-  // State for attendance tracking
-  const [attendanceData, setAttendanceData] = useState<{ [key: string]: string }>({}); // { studentId: 'present' or 'absent' }
+// State for attendance tracking
+const [attendanceData, setAttendanceData] = useState<{ [key: string]: string }>({}); // { studentId: 'present' or 'absent' }
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedAttendance, setSelectedAttendance] = useState([]);
+  
+  const { data: attendanceDataFromServer, loading: attendanceLoading, error: attendanceError } = useQuery(
+    GET_ATTENDANCE_BY_DATE,
+    {
+      variables: { courseId, date: selectedDate },
+      skip: !selectedDate, // Run only when a date is selected
+    }
+  );
+  console.log('Selected date:', selectedDate);
+  console.log('course Id:', courseId);
+  console.log('Fetched attendance:', attendanceDataFromServer);
 
   // Handle attendance change (mark student as present or absent)
   const handleAttendanceChange = (studentId: string, status: string) => {
@@ -37,7 +49,17 @@ const StudentPage = () => {
       [studentId]: status,
     }));
   };
+  
 
+  const handleViewAttendance = () => {
+    if (!selectedDate) {
+      alert('Please select a date.');
+      return;
+    }
+    if (attendanceDataFromServer?.getAttendanceByDate) {
+      setSelectedAttendance(attendanceDataFromServer.getAttendanceByDate);
+    }
+  };
   // Handle adding attendance for all students
   const handleAddAttendance = async () => {
     try {
@@ -162,9 +184,44 @@ const StudentPage = () => {
           </button>
 
           {/* Show error if any during attendance mutation */}
-          {attendanceError && <p className="text-danger mt-2">Error saving attendance: {attendanceError.message}</p>}
+          {mutationAttendanceError  && <p className="text-danger mt-2">Error saving attendance: {mutationAttendanceError .message}</p>}
         </div>
-
+         {/* View Attendance button */}
+         <div className="mt-4">
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+          <button className="btn btn-info" onClick={handleViewAttendance}>
+            View Attendance for Selected Date
+          </button>
+        </div>
+        {/* Display attendance for the selected date */}
+        {attendanceLoading ? <p>Loading attendance...</p> : attendanceError ? <p className="text-danger">Error: {attendanceError.message}</p> : null}
+        {selectedAttendance.length > 0 && (
+          <div className="mt-4">
+            <h4>Attendance for {selectedDate}</h4>
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedAttendance.map((attendance: any) => (
+                  <tr key={attendance._id }>
+                    <td>{attendance.student?.username || 'Unknown'}</td>
+                    <td>{attendance.status}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        
+        )}
+      
 
         {/* Add student form */}
         <div className="mt-4">
