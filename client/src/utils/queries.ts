@@ -30,12 +30,16 @@ export const QUERY_COURSES = gql`
 
 export const QUERY_COURSE_STUDENTS = gql`
   query getCourseStudents($courseId: ID!) {
-    courseStudents(courseId: $courseId) {
+  course(_id: $courseId) {
+    _id
+    title
+    students {
       _id
       username
       email
     }
   }
+}
 `;
 
 export const GET_ALL_STUDENTS = gql`

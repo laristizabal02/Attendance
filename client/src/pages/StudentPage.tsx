@@ -26,6 +26,7 @@ const StudentPage = () => {
   const [addNewStudent, { error: addStudentError }] = useMutation(ADD_NEW_STUDENT);
 
   const handleAddStudent = async () => {
+    console.log(mongoose.Types.ObjectId.isValid(selectedStudentId));
     if (!mongoose.Types.ObjectId.isValid(selectedStudentId)) {
       alert('Invalid Student ID');
       return;
@@ -34,7 +35,7 @@ const StudentPage = () => {
     try {
       await addStudentToCourse({
         variables: { courseId, studentId: selectedStudentId },
-        update: (cache, { data: { addStudentToCourse } }) => {
+          update: (cache, { data: { addStudentToCourse } }) => {
           cache.writeQuery({
             query: QUERY_COURSE_STUDENTS,
             variables: { courseId },

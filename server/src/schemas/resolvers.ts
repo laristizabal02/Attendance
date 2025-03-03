@@ -86,7 +86,7 @@ interface LoginUserArgs {
           throw new Error('Course not found');
         }
   
-        const student = await User.findById(studentObjectId);
+        const student = await Student.findById(studentObjectId);
         if (!student) {
           throw new Error('Student not found');
         }
