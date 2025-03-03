@@ -54,3 +54,38 @@ export const DELETE_COURSE = gql`
     }
   }
 `;
+
+export const ADD_STUDENT_TO_COURSE = gql`
+    mutation AddStudentToCourse($courseId: ID!, $studentId: ID!) {
+    addStudentToCourse(courseId: $courseId, studentId: $studentId) {
+      _id
+      name
+      students {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
+
+export const GET_ALL_STUDENTS = gql`
+  query GetAllStudents {
+    allStudents {
+      _id
+      username
+      email
+    }
+  }
+`;
+
+export const ADD_NEW_STUDENT = gql`
+  mutation addStudent($username: String!, $email: String!) {
+    addStudent(username: $username, email: $email) {
+      _id
+      username
+      email
+    }
+  }
+`;
+

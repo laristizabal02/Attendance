@@ -1,0 +1,43 @@
+[
+    {
+        "title": "Introduction to Programming",
+        "firstName": "John",
+        "lastName": "Science",
+        "students": [
+            { "firstName": "Salome", "lastName": "Einstein" },
+            { "firstName": "Daryl", "lastName": "Holstein" }
+        ]
+    },
+    {
+        "title": "Database Systems",
+        "firstName": "John",
+        "lastName": "Science",
+        "students": [
+            { "firstName": "Catalina", "lastName": "Einstein" }
+        ]
+    },
+    {
+        "title": "Matematicas",
+        "firstName": "John",
+        "lastName": "Science",
+        "students": [
+            { "firstName": "Berta", "lastName": "Smith" }
+        ]
+    },
+    {
+        "title": "Espanol",
+        "firstName": "Sally",
+        "lastName": "Mom",
+        "students": [
+            { "firstName": "Laura", "lastName": "Sheldon" }
+        ]
+    },
+    {
+        "title": "Ingles",
+        "firstName": "Sally",
+        "lastName": "Mom",
+        "students": [
+            { "firstName": "Valeria", "lastName": "Garcia" }
+        ]
+    }
+]

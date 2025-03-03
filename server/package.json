@@ -7,9 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "clean": "node dist/seeds/runCleanDB.js",
-    "seed-data": "node dist/seeds/seed.js",
-    "seed": "npm run clean && npm run seed-data",
+    "seed": "node dist/seeds/seed.js",
     "watch": "nodemon dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -37,3 +37,14 @@ export const QUERY_COURSE_STUDENTS = gql`
     }
   }
 `;
+
+export const GET_ALL_STUDENTS = gql`
+  query GetAllStudents {
+    allStudents {
+      _id
+      username
+      email
+    }
+  }
+`;
+

@@ -6,6 +6,7 @@ interface ExtendedJwt extends JwtPayload {
     username:string,
     email:string,
     id:string
+    _id:string,
   }
 };
 

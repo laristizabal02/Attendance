@@ -2,12 +2,12 @@ import db from '../config/connection.js';
 import { Course, Instructor, Student, User, Person, Parent } from '../models/index.js';
 import cleanDB from './cleanDB.js';
 import mongoose from "mongoose";
-import parentData from './parentData.json' assert { type: 'json' };
-import userData from './userData.json' assert { type: 'json' };
-import personData from './personData.json' assert { type: 'json' };
-import courseData from './courseData.json' assert { type: 'json' };
-import studentData from './studentData.json' assert { type: 'json' };
-import instructorData from './instructorData.json' assert { type: 'json' };
+import parentData from '../Data/parentData.json' assert { type: 'json' };
+import userData from '../Data/userData.json' assert { type: 'json' };
+import personData from '../Data/personData.json' assert { type: 'json' };
+import courseData from '../Data/courseData.json' assert { type: 'json' };
+import studentData from '../Data/studentData.json' assert { type: 'json' };
+import instructorData from '../Data/instructorData.json' assert { type: 'json' };
 const generateObjectIds = (count) => {
     return Array.from({ length: count }, () => new mongoose.Types.ObjectId());
 };

@@ -61,6 +61,7 @@ input StudentInput {
     course(_id: ID!): Course
     getInstructor(id: ID!): Instructor
   getStudent(id: ID!): Student
+  allStudents: [Student]
   }
 
   type Query {
@@ -72,6 +73,7 @@ input StudentInput {
   getInstructor(id: ID!): Instructor
   getStudent(id: ID!): Student
   courseStudents(courseId: ID!): [Student] 
+  allStudents: [Student]
 }
 
   type Mutation {
@@ -81,7 +83,8 @@ input StudentInput {
     updateCourse(_id: ID!, title: String): Course
     deleteCourse(_id: ID!): Course
     addInstructor(input: InstructorInput!): Instructor
-    addStudent(input: StudentInput!): Student
+    addStudentToCourse(courseId: ID!, studentId: ID!): Course
+    addStudent(username: String!, email: String!): Student
   }
 `;
 
