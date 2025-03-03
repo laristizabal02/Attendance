@@ -48,6 +48,22 @@ input StudentInput {
     students: [ID!]
   }
   
+ type Attendance {
+  date: String!
+  status: String!
+  student: Student!
+}
+  input AttendanceInput {
+  studentId: ID!
+  status: String!
+}
+
+type ResponseMessage {
+  success: Boolean!
+  message: String!
+}
+
+
   type Auth {
     token: ID!
     user: User
@@ -62,6 +78,8 @@ input StudentInput {
     getInstructor(id: ID!): Instructor
   getStudent(id: ID!): Student
   allStudents: [Student]
+  attendanceByCourseAndDate(courseId: ID!, date: String!): [Attendance]!
+  attendance(courseId: ID!, date: String!): [Attendance!]!
   }
 
   type Query {
@@ -74,6 +92,8 @@ input StudentInput {
   getStudent(id: ID!): Student
   courseStudents(courseId: ID!): [Student] 
   allStudents: [Student]
+  attendanceByCourseAndDate(courseId: ID!, date: String!): [Attendance]!
+  attendance(courseId: ID!, date: String!): [Attendance!]!
 }
 
   type Mutation {
@@ -85,6 +105,7 @@ input StudentInput {
     addInstructor(input: InstructorInput!): Instructor
     addStudentToCourse(courseId: ID!, studentId: ID!): Course
     addStudent(username: String!, email: String!): Student
+    addAttendance(courseId: ID!, date: String!, attendance: [AttendanceInput!]!): [Attendance!]! 
   }
 `;
 

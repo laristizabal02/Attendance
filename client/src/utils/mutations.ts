@@ -89,3 +89,15 @@ export const ADD_NEW_STUDENT = gql`
   }
 `;
 
+export const ADD_ATTENDANCE = gql`
+  mutation AddAttendance($courseId: ID!, $date: String!, $attendance: [AttendanceInput!]!) {
+    addAttendance(courseId: $courseId, date: $date, attendance: $attendance) {
+      date
+      status
+      student {
+        _id
+        username
+      }
+    }
+  }
+`;

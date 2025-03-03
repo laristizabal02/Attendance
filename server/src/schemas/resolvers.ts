@@ -1,5 +1,6 @@
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
 import { User, Course, Student } from '../models/index.js';
+import Attendance from '../models/Attendance.js'; 
 import { Types } from 'mongoose';
 
 interface AddUserArgs {
@@ -19,6 +20,27 @@ interface LoginUserArgs {
 
   const resolvers = {
     Query: {
+
+      
+      
+      attendanceByCourseAndDate: async (_parent: any, { courseId, date }: { courseId: string, date: string }) => {
+        try {
+          const courseObjectId = new Types.ObjectId(courseId);
+          const dateObject = new Date(date); // Ensure the date is correctly parsed
+      
+          // Find attendance records for the specified course and date
+          const attendanceRecords = await Attendance.find({
+            courseId: courseObjectId,
+            date: { $gte: dateObject.setHours(0, 0, 0, 0), $lt: dateObject.setHours(23, 59, 59, 999) },
+          }).populate('studentId');
+      
+          return attendanceRecords;
+        } catch (error) {
+          console.error('Error fetching attendance:', error);
+          throw new Error('Failed to fetch attendance');
+        }
+      },
+      
       allStudents: async () => {
         try {
           const students = await Student.find(); // Fetch all students from the database
@@ -56,7 +78,67 @@ interface LoginUserArgs {
     },
 
     Mutation: {
+      
 
+      addAttendance: async (_parent: any, { courseId, date, attendance }: { courseId: string, date: string, attendance: Array<{ studentId: string, status: string }> }) => {
+        try {
+          // Convert the courseId to ObjectId
+          const courseObjectId = new Types.ObjectId(courseId);
+      
+          // Ensure the attendance status is either 'present' or 'absent'
+          const validStatuses = ['present', 'absent'];
+      
+          // Validate the attendance data
+          attendance.forEach((att) => {
+            if (!validStatuses.includes(att.status)) {
+              throw new Error('Invalid attendance status');
+            }
+          });
+      
+          // Save attendance records for each student
+          const attendanceRecords = await Promise.all(
+            attendance.map(async (att) => {
+              const studentObjectId = new Types.ObjectId(att.studentId);
+      
+              // Check if the student is already enrolled in the course
+              const course = await Course.findById(courseObjectId);
+              if (!course || !course.students.includes(studentObjectId)) {
+                throw new Error('Student is not enrolled in the course');
+              }
+      
+              // Create a new attendance record
+              const newAttendance = new Attendance({
+                studentId: studentObjectId,
+                courseId: courseObjectId,
+                date: new Date(date), // Ensure the date is correctly parsed
+                status: att.status,
+              });
+      
+              // Save the attendance record to the database
+              await newAttendance.save();
+      
+              // Return the saved attendance record for GraphQL response
+              const student = await Student.findById(studentObjectId); // Retrieve the student for the query
+              return {
+                date: newAttendance.date,
+                status: newAttendance.status,
+                student: {
+                  _id: student?._id,
+                  username: student?.username,
+                },
+              };
+            })
+          );
+      
+          // Return the array of attendance records
+          return attendanceRecords;
+      
+        } catch (error) {
+          console.error('Error adding attendance:', error);
+          throw new Error('Failed to add attendance');
+        }
+      },
+      
       addStudent: async (_: any, { username, email }: { username: string, email: string }) => {
         try {
           // Create a new student and save to the database
